@@ -8,29 +8,38 @@ Our project proposal can be found [here](proposal/proposal.md).
 Link to the [official repository](https://www.ncei.noaa.gov/pub/data/ghcn/daily/) and the [documentation](https://www1.ncdc.noaa.gov/pub/data/ghcn/daily/readme.txt)
 ```bash
 # Create a data directory
-mkdir data
+DATA_DIR=data
+mkdir $DATA_DIR
 
 # Get the metadata
 ## Stations
-wget --directory-prefix=data/ https://www.ncei.noaa.gov/pub/data/ghcn/daily/ghcnd-stations.txt
+wget --directory-prefix=$DATA_DIR/ https://www.ncei.noaa.gov/pub/data/ghcn/daily/ghcnd-stations.txt
 ## States
-wget --directory-prefix=data/ https://www.ncei.noaa.gov/pub/data/ghcn/daily/ghcnd-states.txt
+wget --directory-prefix=$DATA_DIR/ https://www.ncei.noaa.gov/pub/data/ghcn/daily/ghcnd-states.txt
 ## Inventory
-wget --directory-prefix=data/ https://www.ncei.noaa.gov/pub/data/ghcn/daily/ghcnd-inventory.txt
+wget --directory-prefix=$DATA_DIR/ https://www.ncei.noaa.gov/pub/data/ghcn/daily/ghcnd-inventory.txt
 ## Country Codes
-wget --directory-prefix=data/ https://www.ncei.noaa.gov/pub/data/ghcn/daily/ghcnd-countries.txt
+wget --directory-prefix=$DATA_DIR/ https://www.ncei.noaa.gov/pub/data/ghcn/daily/ghcnd-countries.txt
 
-# Get the daily data (7GB - might take some time!)
-wget --directory-prefix=data/ https://www.ncei.noaa.gov/data/global-historical-climatology-network-daily/archive/daily-summaries-latest.tar.gz
+# Get daily-summaries-latest (7GB - might take some time!)
+wget --directory-prefix=$DATA_DIR/ https://www.ncei.noaa.gov/data/global-historical-climatology-network-daily/archive/daily-summaries-latest.tar.gz
 ## unpack
-tar -xf data/daily-summaries-latest.tar.gz -C data/daily-summaries-latest
+tar -xf $DATA_DIR/daily-summaries-latest.tar.gz -C $DATA_DIR/
+rm $DATA_DIR/daily-summaries-latest.tar.gz
 ## keep only the Canadian data
-mkdir data/canada
-mv data/daily-summaries-latest/CA* data/canada
-rm -rf data/daily-summaries-latest
+mkdir $DATA_DIR/ghcnd-daily-summaries-latest-canada
+mv $DATA_DIR/daily-summaries-latest/CA* data/ghcnd-daily-summaries-latest-canada
+rm -rf $DATA_DIR/daily-summaries-latest
 
-# ghcnd all
-wget --directory-prefix=data/ https://www.ncei.noaa.gov/pub/data/ghcn/daily/ghcnd_all.tar.gz
+# Get ghcnd_all (3GB - might take some time!)
+wget --directory-prefix=$DATA_DIR/ https://www.ncei.noaa.gov/pub/data/ghcn/daily/ghcnd_all.tar.gz
+## unpack
+tar -xf $DATA_DIR/ghcnd_all.tar.gz -C data.nosync/
+rm $DATA_DIR/ghcnd_all.tar.gz
+## keep only the Canadian data
+mkdir $DATA_DIR/ghcnd-all-canada
+mv $DATA_DIR/ghcnd_all/CA* data.nosync/ghcnd-all-canada
+rm -rf $DATA_DIR/ghcnd_all
 ```
 
 ## Run the project locally
