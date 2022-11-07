@@ -34,7 +34,7 @@ rm -rf $DATA_DIR/daily-summaries-latest
 # Get ghcnd_all (3GB - might take some time!)
 wget --directory-prefix=$DATA_DIR/ https://www.ncei.noaa.gov/pub/data/ghcn/daily/ghcnd_all.tar.gz
 ## unpack
-tar -xf $DATA_DIR/ghcnd_all.tar.gz -C data.nosync/
+tar -xf $DATA_DIR/ghcnd_all.tar.gz -C $DATA_DIR
 rm $DATA_DIR/ghcnd_all.tar.gz
 ## keep only the Canadian data
 mkdir $DATA_DIR/ghcnd-all-canada
