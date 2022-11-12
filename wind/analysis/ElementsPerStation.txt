@@ -1,0 +1,25 @@
++-----------+------------------------------------------------------------------------------------------------------------------------------------+------------------------------+-----------------+
+|station    |elements                                                                                                                            |matches                       |number_of_matches|
++-----------+------------------------------------------------------------------------------------------------------------------------------------+------------------------------+-----------------+
+|CAW00014508|[TMAX, TMIN, PRCP, SNOW, SNWD, ACMH, ACSH, PGTM, THIC, WDFG, WESD, WSFG, WT01, WT02, WT03, WT04, WT05, WT06, WT08, WT09, WT16, WT18]|[TMAX, TMIN, WDFG, WSFG, WT03]|5                |
+|CA007044980|[TMAX, TMIN, PRCP, SNOW, SNWD, PGTM, WDFG, WSFG, WT01, WT03, WT04, WT06, WT08, WT09, WT16, WT18]                                    |[TMAX, TMIN, WDFG, WSFG, WT03]|5                |
+|CA008403800|[TMAX, TMIN, PRCP, SNOW, SNWD, PGTM, TAVG, WDFG, WESD, WSFG, WT01, WT03, WT04, WT05, WT06, WT07, WT08, WT09, WT16, WT18]            |[TMAX, TMIN, WDFG, WSFG, WT03]|5                |
+|CA007113534|[TMAX, TMIN, PRCP, SNOW, SNWD, PGTM, TAVG, WDFG, WSFG, WT01, WT03, WT08, WT09, WT16, WT18]                                          |[TMAX, TMIN, WDFG, WSFG, WT03]|5                |
+|CA002402590|[TMAX, TMIN, PRCP, SNOW, SNWD, PGTM, WDFG, WSFG, WT01, WT03, WT04, WT06, WT08, WT09, WT16, WT18]                                    |[TMAX, TMIN, WDFG, WSFG, WT03]|5                |
+|CA006017401|[TMAX, TMIN, PRCP, TAVG, WDFG, WSFG]                                                                                                |[TMAX, TMIN, WDFG, WSFG]      |4                |
+|CA006068153|[TMAX, TMIN, PRCP, SNOW, SNWD, TAVG, WDFG, WSFG]                                                                                    |[TMAX, TMIN, WDFG, WSFG]      |4                |
+|CA006072230|[TMAX, TMIN, PRCP, SNWD, TAVG, WDFG, WSFG]                                                                                          |[TMAX, TMIN, WDFG, WSFG]      |4                |
+|CA008204495|[TMAX, TMIN, PRCP, TAVG, WDFG, WSFG]                                                                                                |[TMAX, TMIN, WDFG, WSFG]      |4                |
+|CA004012410|[TMAX, TMIN, PRCP, SNWD, TAVG, WDFG, WSFG]                                                                                          |[TMAX, TMIN, WDFG, WSFG]      |4                |
+|CA008200604|[TMAX, TMIN, PRCP, SNWD, TAVG, WDFG, WSFG]                                                                                          |[TMAX, TMIN, WDFG, WSFG]      |4                |
+|CA003012209|[TMAX, TMIN, PRCP, SNOW, SNWD, TAVG, WDFG, WSFG]                                                                                    |[TMAX, TMIN, WDFG, WSFG]      |4                |
+|CA001012475|[TMAX, TMIN, PRCP, SNOW, SNWD, TAVG, WDFG, WSFG]                                                                                    |[TMAX, TMIN, WDFG, WSFG]      |4                |
+|CA005012324|[TMAX, TMIN, PRCP, SNOW, SNWD, TAVG, WDFG, WSFG]                                                                                    |[TMAX, TMIN, WDFG, WSFG]      |4                |
+|CA007055121|[TMAX, TMIN, PRCP, SNOW, SNWD, TAVG, WDFG, WSFG]                                                                                    |[TMAX, TMIN, WDFG, WSFG]      |4                |
+|CA008403619|[TMAX, TMIN, PRCP, SNWD, TAVG, WDFG, WSFG]                                                                                          |[TMAX, TMIN, WDFG, WSFG]      |4                |
+|CA00406QLD0|[TMAX, TMIN, PRCP, SNOW, SNWD, TAVG, WDFG, WSFG]                                                                                    |[TMAX, TMIN, WDFG, WSFG]      |4                |
+|CA006139449|[TMAX, TMIN, PRCP, SNWD, TAVG, WDFG, WSFG]                                                                                          |[TMAX, TMIN, WDFG, WSFG]      |4                |
+|CA007041100|[TMAX, TMIN, PRCP, SNOW, SNWD, TAVG, WDFG, WSFG]                                                                                    |[TMAX, TMIN, WDFG, WSFG]      |4                |
+|CA003012818|[TMAX, TMIN, PRCP, TAVG, WDFG, WSFG]                                                                                                |[TMAX, TMIN, WDFG, WSFG]      |4                |
++-----------+------------------------------------------------------------------------------------------------------------------------------------+------------------------------+-----------------+
+only showing top 20 rows
