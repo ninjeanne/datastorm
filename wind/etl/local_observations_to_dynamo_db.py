@@ -1,17 +1,22 @@
+# USAGE: spark-submit local_observations_to_dynamo_db.py <input_path_stations> <input_path_data>
+#
+# First, create the tables "WSFG", "WT03", "TAVG" in DynamoDB with the
+#  primary key (composite key): partition_key station_id and sort_key date
+
+import subprocess
 import sys
 
-assert sys.version_info >= (3, 5)  # make sure we have Python 3.5+
-import subprocess
-
-subprocess.check_call([sys.executable, "-m", "pip", "install", "boto3"])
 import boto3
-from pyspark.sql import SparkSession, functions, types
+
+assert sys.version_info >= (3, 5)
+from pyspark.sql import SparkSession, types, functions
 from decimal import Decimal
 
-dynamodb = boto3.resource('dynamodb', 'us-west-2')
+subprocess.check_call([sys.executable, "-m", "pip", "install", "boto3"])
 
 
 def batch_write(table_name, rows):
+    dynamodb = boto3.resource('dynamodb', 'us-west-2')
     table = dynamodb.Table(table_name)
 
     with table.batch_writer() as batch:
@@ -45,8 +50,8 @@ def get_stations_columns():
     return ["station_id", "latitude", "longitude", "elevation", "state", "station_name"]
 
 
-def get_station_data():
-    stations_data = sc.textFile("../../data.nosync/ghcnd-stations.txt")
+def get_station_data(input_path_stations):
+    stations_data = sc.textFile(input_path_stations)
     formatted_lines = stations_data.filter(lambda line: line.startswith("CA")).map(parse_stations_line)
     cleaned_stations = formatted_lines.toDF(get_stations_columns())
     print("Read and clean the station meta data")
@@ -66,16 +71,15 @@ def get_data_schema():
     ])
 
 
-# TODO: First, create the tables "WSFG", "WT03", "TAVG" in DynamoDB with the
-#  primary key (composite key): partition_key station_id and sort_key date
-def etl():
+def etl(input_path_stations, input_path_data):
     observations_of_interest = ["WSFG", "WT03", "TAVG"]
-    data = spark.read.csv("../../data.nosync/cluster-data/2020.csv.gz", schema=get_data_schema())
+
+    stations = get_station_data(input_path_stations)
+
+    data = spark.read.csv(input_path_data, schema=get_data_schema())
     cleaned_raw_data = data.where(data["station_id"].startswith("CA"))
     print("Read and clean the raw data")
     cleaned_raw_data.show(5)
-
-    stations = get_station_data()
 
     # functions.to_date(functions.col("date"), "yyyyMMdd").alias("date") DynamoDB doesn't like the datetype
     merged = stations \
@@ -99,8 +103,10 @@ def etl():
 
 
 if __name__ == '__main__':
-    spark = SparkSession.builder.appName('Datastorm').getOrCreate()
-    assert spark.version >= '3.0'  # make sure we have Spark 3.0+
+    input_path_stations = sys.argv[1]
+    input_path_data = sys.argv[2]
+    spark = SparkSession.builder.appName('local_observations_to_dynamo_db').getOrCreate()
+    assert spark.version >= '3.0'
     spark.sparkContext.setLogLevel('WARN')
     sc = spark.sparkContext
-    etl()
+    etl(input_path_stations, input_path_data)
