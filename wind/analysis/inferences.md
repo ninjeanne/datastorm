@@ -4,5 +4,3 @@
   * Check: Correlation between temperature and wind speed?
 * Correlation of wind speed, rain and temperature on thunder?
 * Change of wind speed and temperature over a timeline: Did locations become affected more than others?
-
-
