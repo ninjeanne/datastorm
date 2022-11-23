@@ -57,8 +57,8 @@ def etl(s3_path_stations_txt, s3_data_bucket, s3_output_bucket):
         .where(data["qflag"] != "null")
     merged.show(5)
 
-    print("Start writing to S3 bucket")
-    merged.repartition().write.partitionBy("observation").parquet(s3_output_bucket, mode="overwrite")
+    print("Start writing to local")
+    merged.repartition(1293).write.partitionBy("observation").parquet(s3_output_bucket, mode="overwrite")
 
 if __name__ == '__main__':
     s3_path_stations_txt = sys.argv[1]
