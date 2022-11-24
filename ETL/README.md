@@ -44,6 +44,9 @@
   * Can be partitioned easily
   * It doesn't need a delimiter
   * More benefits: https://www.databricks.com/glossary/what-is-parquet
+* Compression:
+  * spark.sql.parquet.compression.codec 
+  * default: snappy
 
 ## Data formats
 ### Metadata (Stations)

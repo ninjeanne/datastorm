@@ -2,7 +2,7 @@
 
 ## Cluster configuration
 * Software configuration
-  * Release: emr-6.8.0
+  * Release: emr-6.9.0
   * Application: Spark
 * Hardware configuration
   * Instance type: c7g.large
@@ -49,12 +49,39 @@ Restrictions:
 * Optimal file size for parquet is 1GB according to the documentation
 
 ### Process raw data in EMR
-To find the optimal number of partitions, we decided to compare different partition sizes
-* no partitioning (dynamic allocation of spark activated)
-* 15000 Partitions
-* 1500 Partitions
+* To find the optimal number of partitions, we decided to compare different partition sizes
+  * no partitioning (dynamic allocation of spark activated)
+  * 15000 Partitions
+  * 1500 Partitions
+* Test files
+  * data
+    * year: 2010
+    * size: 197.5MB
+    * compression: gzip
+    * format: CSV
+  * stations
+    * includes all stations
+    * size: 10.1MB
+    * compression: none
+    * format: TXT (fixed positions)
+* Test Queries in Athena
+  * Query 1 
+    * select count(observations.observation), observation, date from observations where observations.date LIKE '2010%' GROUP BY observations.observation, observations.date ORDER BY observations.date;
+  * Query 2
+    * select * from observations where observations.observation = 'TMAX' OR observations.observation = 'PRCP' LIMIT 100;
+* other configurations:
+  * s3selectCSV-filter activated for the CSV files
+  * output will be compressed with Snappy
 
-|                   | No partitioning | 1500p   | 15000p  |
-|-------------------|-----------------|---------|---------|
-| Total size        | 813             | 3.7GB   | 6.7GB   |
-| Number of objects | 1.6GB           | 18,265  | 171,688 |
+
+| Service |                   |              | No partitioning | 1500p     | 15000p    | 12p        |
+|---------|-------------------|--------------|-----------------|-----------|-----------|------------|
+| EMR     | Elapsed time      |              | 52s             | 3min      | 26min     | 54 seconds |
+| S3      | Total size        |              | 14.5MB          | 98.9 MB   | 289.8 MB  | 19.7MB     |
+|         | Number of objects |              | 10              | 9,009     | 89,803    | 81         |
+| Glue    | Elapsed time      |              | 47s             | 59s       | 1m24s     | 48s        |
+| Athena  | Query 1           | Run time     | 1.232s          | 2.42s     | 6.363s    | 1.159 sec  |
+|         |                   | Data scanned | 88.99KB         | 8.43 MB   | 14.34 MB  | 2.19 MB    |
+|         | Query 2           | Run time     | 869 ms          | 949 ms    | 1.73s     | 749 ms     |
+|         |                   | Data scanned | 6.97 MB         | 160.35 KB | 557.64 KB | 776.29 KB  |
+
