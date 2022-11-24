@@ -1,0 +1,2 @@
+# Run and test the project
+TODO: In your repository, please include a file RUNNING.txt (or RUNNING.md if you prefer) indicating how we can actually test your project: commands on the cluster, input files, etc.
