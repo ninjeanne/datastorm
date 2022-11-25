@@ -8,13 +8,13 @@ assert sys.version_info >= (3, 5)  # make sure we have Python 3.5+
 
 
 def main(path_to_data, path_to_trained_model):
-    data = spark.read.parquet(path_to_data)  # TODO filter for a date range (and add this as a input param)
+    data = spark.read.parquet(path_to_data)
     training, validation = data.randomSplit([0.75, 0.25])
     training = training.cache()
     validation = validation.cache()
 
     assemble_features = VectorAssembler(
-        inputCols=['latitude', 'longitude', 'elevation', 'day_of_year', 'yesterdays_value'],
+        inputCols=['latitude', 'longitude', 'elevation', 'day_of_year', 'yesterdays_value', 'observation'],
         outputCol='features')
     regressor = GBTRegressor(
         featuresCol='features', labelCol='value')
@@ -50,7 +50,7 @@ def main(path_to_data, path_to_trained_model):
 if __name__ == '__main__':
     path_to_data = sys.argv[1]
     path_to_trained_model = sys.argv[2]
-    spark = SparkSession.builder.appName('weather train').getOrCreate()
+    spark = SparkSession.builder.appName('observation prediction train').getOrCreate()
     assert spark.version >= '3.0'
     spark.sparkContext.setLogLevel('WARN')
     main(path_to_data, path_to_trained_model)
