@@ -7,6 +7,8 @@
 
 ### Amazon Simple Storage Service (S3)
 
+### Amazon Glue
+
 ### Amazon Athena
 
 ### Amazon Quicksight
@@ -55,3 +57,10 @@
 * Redshift Spectrum is more suitable for running large, complex queries, while Athena is more suited for simplifying interactive queries.
 
 * Redshift Spectrum needs cluster management, while Athena allows for a truly serverless architecture.
+
+### Athena results - storing|editing|downloading|accessing
+
+* AWS stores athena query results automatically to S3 buckets. These results include .csv and .txt of both result and metadata.
+* The result from recent queries are stored upto 45 days and automatically deleted after that. But we can choose to extend this duration should we need the result for a longer duration
+* The results can be viewed at anytime, edited and even downloaded for further analysis or visualization.
+https://docs.aws.amazon.com/athena/latest/ug/querying.html
