@@ -5,7 +5,8 @@
 ## Snow
 
 ## Wind
-[Athena queries for correlating wind data](wind.sql)
+The usage of the queries and the interpretation of the plots can be found [here](../Visualization/wind)
+[All used Athena queries for correlating wind data](wind.sql)
 
 ______
 ### A quick note on time series weather prediction
