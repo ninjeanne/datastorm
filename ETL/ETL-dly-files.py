@@ -2,7 +2,7 @@
 #
 # spark-submit ETL-dly-files.py ../data.nosync/ghcnd-stations.txt ../data.nosync/ghcnd-all-canada/CA1AB000001.dly
 import sys
-assert sys.version_info >= (3, 5) # make sure we have Python 3.5+
+assert sys.version_info >= (3, 5)
 from pyspark.sql import SparkSession, types, Row
 import datetime
 
@@ -63,7 +63,7 @@ def ghcnd_all_columns():
 
 def etl(stations_path, data_path):
     stations_input = sc.textFile(stations_path)
-    formatted_lines = stations_input.filter(lambda line: line.startswith("CA")).map(parse_line)
+    formatted_lines = stations_input.map(parse_line)
     cleaned_stations = spark.createDataFrame(data=formatted_lines, schema=stations_schema())
     cleaned_stations.show()  # station|latitude|longitude|elevation|state|station_name
 
