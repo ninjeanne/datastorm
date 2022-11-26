@@ -37,6 +37,56 @@ select state, max(value) as max_wsfg, avg(value) as avg_wsfg, min(value) as min_
 select state, count(observation) as count_wsfg, date_format(date_parse(date,'%Y%m%d'), '%Y') as year from datastorm.observations where observation = 'WSFG' group by state, observation, date_format(date_parse(date,'%Y%m%d'), '%Y') order by state, count_wsfg desc, year
 -- the most values come from 2016 and 2017 (one exception: PE: 2016, 2020, 2017). Collection seems to have started in 2015. Exception: NL (1950-1970)
 
+-- combine elements of interest
+SELECT
+    t1.station as station,
+    t1.date as date,
+    t1.observation as wsfg,
+    t1.value as wsfg_val,
+    t2.observation as tmax,
+    t2.value as tmax_val,
+    t3.observation as tmin,
+    t3.value as tmin_val,
+    t4.observation as tavg,
+    t4.value as tavg_val
+FROM datastorm.observations t1
+    LEFT JOIN datastorm.observations t2 ON t1.station = t2.station AND t1.date = t2.date
+    LEFT JOIN datastorm.observations t3 ON t1.station = t3.station AND t1.date = t3.date
+    LEFT JOIN datastorm.observations t4 ON t1.station = t4.station AND t1.date = t4.date
+    WHERE t2.observation = 'TMAX' AND t1.observation = 'WSFG' AND t3.observation = 'TMIN' AND t3.observation = 'TAVG'
+
+
+-- alternative
+SELECT
+    t1.station as station,
+    t1.date as date,
+    t1.value as wsfg_val,
+    t2.value/10 as tmax_val,
+    t3.value/10 as tmin_val,
+    t4.value/10 as tavg_val
+FROM datastorm.observations t1
+    INNER JOIN datastorm.observations t2 ON t1.station = t2.station AND t1.date = t2.date AND t2.observation = 'TMAX'
+    INNER JOIN datastorm.observations t3 ON t1.station = t3.station AND t1.date = t3.date AND t1.observation = 'WSFG' AND t3.observation = 'TMIN'
+    INNER JOIN datastorm.observations t4 ON t1.station = t4.station AND t1.date = t4.date AND t4.observation = 'TAVG'
+
+
+-- with casting since 2015
+SELECT
+    t1.station as station,
+    t1.date as date,
+    t1.elevation,
+    t1.longitude,
+    t1.latitude,
+    t1.state,
+    cast(t1.value AS DOUBLE) as wsfg,
+    (cast(t2.value AS DOUBLE)/10) as tmax,
+    (cast(t3.value AS DOUBLE)/10) as tmin,
+    (cast(t4.value AS DOUBLE)/10) as tavg
+FROM datastorm.observations t1
+    INNER JOIN datastorm.observations t2 ON t1.station = t2.station AND t1.date = t2.date AND t2.observation = 'TMAX'
+    INNER JOIN datastorm.observations t3 ON t1.station = t3.station AND t1.date = t3.date AND t1.observation = 'WSFG' AND t3.observation = 'TMIN'
+    INNER JOIN datastorm.observations t4 ON t1.station = t4.station AND t1.date = t4.date AND t4.observation = 'TAVG'
+WHERE date_parse(t1.date,'%Y%m%d') > CAST('2015-01-01' AS DATE)
 
 
 
