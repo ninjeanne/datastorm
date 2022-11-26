@@ -88,6 +88,8 @@ FROM datastorm.observations t1
     INNER JOIN datastorm.observations t4 ON t1.station = t4.station AND t1.date = t4.date AND t4.observation = 'TAVG'
 WHERE date_parse(t1.date,'%Y%m%d') > CAST('2015-01-01' AS DATE)
 
+
+-- All observations of interest
 -- grouped by year and month and by state
 SELECT
     t1.state,
