@@ -43,3 +43,15 @@
   * We will use AWS Glue to connect Athena with our S3 buckets, so we replace DynamoDB and Lambda with AWS Glue and connect our dataset directly to Athena. 
   * Athena is serverless, so we only pay what we execute
  
+### Spectrum vs Athena
+* Redshift Spectrum runs with Amazon Redshift, while Athena is a standalone query engine for querying data stored in Amazon S3.
+
+* With Redshift Spectrum, you have control over resource provisioning, while in the case of Athena, AWS allocates resources automatically.
+
+* The performance of Redshift Spectrum depends on your Redshift cluster resources and optimization of S3 storage, while the performance of Athena only depends on S3 optimization. Initial transformation work was completed at S3 with EMR cluster. Data stored as parquet files and partitioned according to requirement (observation type).
+
+* Redshift Spectrum can be more consistent performance-wise while querying in Athena can be slow during peak hours since it runs on pooled resources.
+
+* Redshift Spectrum is more suitable for running large, complex queries, while Athena is more suited for simplifying interactive queries.
+
+* Redshift Spectrum needs cluster management, while Athena allows for a truly serverless architecture.
