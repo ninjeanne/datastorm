@@ -7,6 +7,8 @@
 
 ### Amazon Simple Storage Service (S3)
 
+### Amazon Glue
+
 ### Amazon Athena
 
 ### Amazon Quicksight
@@ -43,3 +45,22 @@
   * We will use AWS Glue to connect Athena with our S3 buckets, so we replace DynamoDB and Lambda with AWS Glue and connect our dataset directly to Athena. 
   * Athena is serverless, so we only pay what we execute
  
+### Spectrum vs Athena
+* Redshift Spectrum runs with Amazon Redshift, while Athena is a standalone query engine for querying data stored in Amazon S3.
+
+* With Redshift Spectrum, you have control over resource provisioning, while in the case of Athena, AWS allocates resources automatically.
+
+* The performance of Redshift Spectrum depends on your Redshift cluster resources and optimization of S3 storage, while the performance of Athena only depends on S3 optimization. Initial transformation work was completed at S3 with EMR cluster. Data stored as parquet files and partitioned according to requirement (observation type).
+
+* Redshift Spectrum can be more consistent performance-wise while querying in Athena can be slow during peak hours since it runs on pooled resources.
+
+* Redshift Spectrum is more suitable for running large, complex queries, while Athena is more suited for simplifying interactive queries.
+
+* Redshift Spectrum needs cluster management, while Athena allows for a truly serverless architecture.
+
+### Athena results - storing|editing|downloading|accessing
+
+* AWS stores athena query results automatically to S3 buckets. These results include .csv and .txt of both result and metadata.
+* The result from recent queries are stored upto 45 days and automatically deleted after that. But we can choose to extend this duration should we need the result for a longer duration
+* The results can be viewed at anytime, edited and even downloaded for further analysis or visualization.
+https://docs.aws.amazon.com/athena/latest/ug/querying.html
