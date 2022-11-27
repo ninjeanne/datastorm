@@ -40,4 +40,8 @@ The temperature in the territories (Nunavut (NT), Northern Territories (NT) and 
 
 In conclusion, we will continue our research on the southern states.
 
+The final [Geomap](Heatmap_with_Geodata_2022-11-27T00_50_24.pdf) visualizes the max, min and average of the wind, max, min and average temperature.
+
+According to this plot, the best place to live with respect to temperature and wind is the Greater Vancouver Area!
+
 

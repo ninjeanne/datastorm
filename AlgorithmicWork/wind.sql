@@ -90,7 +90,7 @@ WHERE date_parse(t1.date,'%Y%m%d') > CAST('2015-01-01' AS DATE)
 
 
 -- All observations of interest
--- grouped by year and month and by state
+-- grouped by YYYYMM, state
 SELECT
     t1.state,
     date_format(date_parse(t1.date,'%Y%m%d'), '%Y%m') as date,
@@ -104,8 +104,36 @@ FROM datastorm.observations t1
     INNER JOIN datastorm.observations t4 ON t1.station = t4.station AND t1.date = t4.date AND t4.observation = 'TAVG'
 GROUP BY t1.state, date_format(date_parse(t1.date,'%Y%m%d'), '%Y%m')
 
+-- grouped by YYYYMM, station and state
+SELECT
+    t1.station,
+    t1.state,
+    t1.latitude,
+    t1.longitude,
+    date_format(date_parse(t1.date,'%Y%m%d'), '%Y%m') as date,
+    avg(cast(t1.value AS DOUBLE)) as wsfg,
+    avg(cast(t2.value AS DOUBLE)/10) as tmax,
+    avg(cast(t3.value AS DOUBLE)/10) as tmin,
+    avg(cast(t4.value AS DOUBLE)/10) as tavg
+FROM datastorm.observations t1
+    INNER JOIN datastorm.observations t2 ON t1.station = t2.station AND t1.date = t2.date AND t2.observation = 'TMAX'
+    INNER JOIN datastorm.observations t3 ON t1.station = t3.station AND t1.date = t3.date AND t1.observation = 'WSFG' AND t3.observation = 'TMIN'
+    INNER JOIN datastorm.observations t4 ON t1.station = t4.station AND t1.date = t4.date AND t4.observation = 'TAVG'
+GROUP BY t1.station, date_format(date_parse(t1.date,'%Y%m%d'), '%Y%m'), t1.state, t1.latitude, t1.longitude
 
 
+-- SQL query for the geo heatmap
+SELECT
+    t1.station,
+    t1.state,
+    t1.latitude,
+    t1.longitude,
+    t1.observation,
+    avg(value) as avg_value,
+    date_format(date_parse(t1.date,'%Y%m%d'), '%Y%m') as date
+FROM datastorm.observations t1
+WHERE observation in ('WSFG', 'TMAX', 'TMIN', 'TAVG')
+GROUP BY t1.station, date_format(date_parse(t1.date,'%Y%m%d'), '%Y%m'), t1.state, t1.latitude, t1.longitude, t1.observation
 
 
 
