@@ -45,7 +45,7 @@
   * We will use AWS Glue to connect Athena with our S3 buckets, so we replace DynamoDB and Lambda with AWS Glue and connect our dataset directly to Athena. 
   * Athena is serverless, so we only pay what we execute
  
-### Spectrum vs Athena
+### Redshift-Spectrum vs Athena
 * Redshift Spectrum runs with Amazon Redshift, while Athena is a standalone query engine for querying data stored in Amazon S3.
 
 * With Redshift Spectrum, you have control over resource provisioning, while in the case of Athena, AWS allocates resources automatically.
@@ -57,6 +57,13 @@
 * Redshift Spectrum is more suitable for running large, complex queries, while Athena is more suited for simplifying interactive queries.
 
 * Redshift Spectrum needs cluster management, while Athena allows for a truly serverless architecture.
+
+* A data warehouse like Amazon Redshift is your best choice when you need to pull together data from many different sources – like inventory systems, financial systems, and retail sales systems – into a common format, and store it for long periods of time, to build sophisticated business reports from historical data; then a data warehouse like Amazon Redshift is the best choice. When you need to run queries against highly structured data with lots of joins across lots of very large tables, you should choose Amazon Redshift.
+ 
+By comparison, query services like Amazon Athena make it easy to run interactive queries against data directly in Amazon S3 without worrying about formatting data or managing infrastructure. For example, Athena is great if you just need to run a quick query on some web logs to troubleshoot a performance issue on your site. With query services, you can get started fast. You just define a table for your data and start querying using standard SQL.
+ 
+You can also use both services together. If you stage your data on Amazon S3 before loading it into Amazon Redshift, that data can also be registered with and queried by Amazon Athena.
+Since our GHCN data was highly-relational and well partitioned and stored on S3, we were able to directly use a query service like athena to complete further analysis.
 
 ### Athena results - storing|editing|downloading|accessing
 
