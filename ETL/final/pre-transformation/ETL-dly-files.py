@@ -75,8 +75,6 @@ def etl(stations_path, data_path):
     joined_ghcnd_and_stations = cleaned_stations.join(cleaned_ghcnd_all, "station")
     joined_ghcnd_and_stations.show()  # station|latitude|longitude|elevation|state|station_name|date|observation|value|mflag|qflag|sflag|
 
-    # TODO output?
-
 
 if __name__ == '__main__':
     stations_path = sys.argv[1]

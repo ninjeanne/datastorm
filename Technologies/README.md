@@ -50,7 +50,7 @@ More benefits include
  * compatible to a variety of data sources (csv files, SaaS data sources, file sources or relational data sources like Amazon Athena, Amazon Redshift, Amazon S3)
 
 ## Conclusion
-By comparing all the pros and cons concerning our problem statement, we decided to use Amazon Quicksight. The connection to the other web services is the easiest solution, it is well-documented, and we will rely on only one set of products: Amazon.
+By comparing all the pros and cons concerning our problem statement, we decided to use Amazon Quicksight. A connection to other web services takes less effort, QuickSight is well-documented, and we will rely on only one set of products: Amazon.
 
 ### Amazon DynamoDB
 * We experienced massive loading times from S3 to Athena 

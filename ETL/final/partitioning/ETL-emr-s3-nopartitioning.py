@@ -1,8 +1,7 @@
 import sys
-assert sys.version_info >= (3, 5) # make sure we have Python 3.5+
+assert sys.version_info >= (3, 5)
 import re
 from pyspark.sql import SparkSession, functions, types, Row
-from decimal import Decimal
 import sys
 
 
@@ -18,17 +17,13 @@ def stations_schema():
     ])
 
 def parse_line(line):
-    id = '(\S+)'
-    latitude = '([-+]?(?:\d*\.\d+|\d+))'
-    longitude = '([-+]?(?:\d*\.\d+|\d+))'
-    elevation = '([-+]?(?:\d*\.\d+|\d+))'
-    state = '([-a-zA-Z0-9_][-a-zA-Z0-9_])'
-    name = '((\S+\s)+)'
-    delimiter = '\s+'
-    any = ".*"
-    line_re = re.compile(r'^'+ id + delimiter + latitude + delimiter + longitude + delimiter + elevation + delimiter + state + delimiter + name + any + '$')
-    splitted_line = re.match(line_re, line)
-    return Row(splitted_line.group(1), float(splitted_line.group(2)), float(splitted_line.group(3)), float(splitted_line.group(4)), splitted_line.group(5), splitted_line.group(6))
+    station_id = line[:11]
+    latitude = line[11:20]
+    longitude = line[20:30]
+    elevation = line[30:37]
+    state = line[38:40]
+    station_name = line[41:72]
+    return Row(station_id, float(latitude), float(longitude), float(elevation), state, station_name)
 
 
 def etl(inputs, outputs):
@@ -56,7 +51,7 @@ def etl(inputs, outputs):
     ])
 
 
-    ghcn_df = spark.read.format("s3selectCSV").schema(observation_schema).options(compression='gzip').load(inputs + ghcn_data)
+    ghcn_df = spark.read.format("s3selectCSV").schema(observation_schema).options(compression='gzip').load(inputs + ghcn_data+ "2010.csv.gz")
 
     #### 2.1 Extracting Only Canada Data Using Station Name
     canada_weather_data = ghcn_df.filter(ghcn_df.station.startswith('CA'))
@@ -102,13 +97,12 @@ def etl(inputs, outputs):
 if __name__ == '__main__':
     inputs = sys.argv[1]
     outputs = sys.argv[2]
-    spark = SparkSession.builder.appName('Datastorm').getOrCreate()
+    spark = SparkSession.builder.appName('Datastorm no partitioning').getOrCreate()
     assert spark.version >= '3.0' # make sure we have Spark 3.0+
     spark.sparkContext.setLogLevel('WARN')
     sc = spark.sparkContext
     etl(inputs, outputs)
 
     #  --conf spark.dynamicAllocation.enabled=false --conf spark.yarn.maxAppAttempts=1 --num-executors=12 --executor-cores=1 --executor-memory=600M
-    # s3://kpd3-datastorm-cmpt732/ETL_script-emr-s3.py 
-    # s3://kpd3-datastorm-cmpt732/ s3://kpd3-datastorm-cmpt732/data_after_ETL-nopartitioning/
-
+    # s3://datastorm-data/ETL-emr-s3-nopartitioning.py
+    # s3://kpd3-datastorm-cmpt732/ s3://datastorm-data/data_after_ETL-nopartitioning/
