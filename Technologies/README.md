@@ -34,8 +34,8 @@ We don't want to implement a visualization solution from scratch and also to con
 
 **Comparison**\
 *Matplotlib*\
-Matplotlib needs us to use GeoPandas, so we need to transform Spark's Dataframes into Panda's Dataframes. This approach would take more computation power. Furthermore, we must implement every graph from scratch and deploy a frontend. We tried it out to visualize the stations on a map of Canada.
-![matplot](img/matplot.png)
+Matplotlib needs us to use GeoPandas, so we need to transform Spark's Dataframes into Panda's Dataframes. This approach would take more computation power. Furthermore, we must implement every graph from scratch and deploy a frontend. We tried it out to visualize the stations on a map of Canada. \
+![matplot](img/matplot.png) \
 The corresponding code can be found here ![matplot](../ETL/Analysis/wind/analysis/Analysis.ipynb). 
 We don't want to work on-premise, as we have to think about deployments and scaling by ourselves. The effort is too much.
 
