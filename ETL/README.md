@@ -66,7 +66,8 @@ Examples can be found [here](final/pre-transformation)
 * Filter
   * only Canadian data
   * after 1900
-  * no QFLAG
+  * Qflag = Null to ensure only high quality data
+  * Dropping other irrelevan columns 
 
 ## Optimization
 After setting up our pipeline from uploading the raw data to finally crawling it, we came to more conclusions in transforming the data more optimally.
