@@ -1,9 +1,18 @@
 # Extract-Transform-Load (ETL)
 
+Our dataset came from GHCNd. The organization decided to use DLY, where values can be read from fixed positions. We worked out the key for this, as it was not documented for either values or metadata.
+We then encountered further difficulties splitting the data series (this comprised a whole month of data) into a more aggregatable format.
+A better representation of this was found on our course's cluster CMPT-732. We decided to work with it first, but we have shown [here](final/pre-transformation) how DLY can be converted to the same CSV format of the SFU cluster. 
+
 ## Final ETL files
 [Script for transforming DLY files](final)
 
 ## Data analysis
+Our analyses with the data provided in both DLY and CSV helped us derive a more convenient data format. The following compares the properties of both structures of the same data set.
+
+### Data formats
+Examples can be found [here](final/pre-transformation)
+
 ### Properties of the GHCNd dataset
 * The data does not include column names and uses a non-self-explanatory format.
   * We need to add column names and data types
@@ -13,7 +22,7 @@
 * Raw data contains weather data for the whole world
   * We need to filter the data for Canada
 * Raw data is zipped and has to be downloaded from a website
-  * Now accessible and crawlable in S3
+  * Make it accessible, e.g. with S3
 * Raw data contains measurements that don't fulfill our quality standards (QFLAG)
   * Filter data that has a quality issue
 * Raw data is partitioned into stations and is sorted by year and month
@@ -29,26 +38,36 @@
 * Partitioned into large CSV files and grouped per year
   * We need to partition it better to benefit from Spark's parallelism
 * Better delimiter as with the original DLY files, but still not self-explanatory and without datatypes
-  * Use Parquet instead
-* It still contains weather data for the whole world
-  * Filter for Canada
+  * Use a format like Avro or Parquet instead
+* It still contains weather data for the whole world over a long period of time
+  * Filter on Canada
+  * Filter on data after 1900
 * A row contains data for only one date and one observation
   * That's better, but we still have to read every row, and aggregating the data takes some time
 * A row doesn't contain information on the state
   * We still have to join the dataset with the station's metadata
-* One data entry has already been joined with the station's metadata (denormalized data, repeating coordinates for a station)
 
-### Other decisions that we've made:
+### Conclusions
 * We are not interested in every observation, but a few selected ones that we have stated in our problem
-* Partitioning after observations accordingly to our future queries
-* Using Parquet as the new format
+* Structure
+  * similar to the CSVs but joined with metadata on stations
+* Denormalization
+  * joined stations with values
+* Accessibility
+  * Will be stored in S3, publicly available
+* Partitioning
+  * after observations accordingly to our future queries
+* Format: Parquet
   * Self-explanatory
-  * Column-oriented (better for serverless queries on S3!)
+  * Column-oriented (better for faster serverless queries on S3!)
   * Can be partitioned easily
   * It doesn't need a delimiter
-* Compression:
-  * spark.sql.parquet.compression.codec 
-  * Default: snappy
+* Compression: Snappy (default value of spark.sql.parquet.compression.codec)
+* Filter
+  * only Canadian data
+  * after 1900
+  * no QFLAG
 
-### Data formats
-Examples can be found [here](final/pre-transformation)
+## Optimization
+After setting up our pipeline from uploading the raw data to finally crawling it, we came to more conclusions in transforming the data more optimally.
+We discuss this in our chapter [Visualization](../Visualization)

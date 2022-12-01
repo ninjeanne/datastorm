@@ -2,15 +2,12 @@
 
 As described in [Technologies](../Technologies), we decided to use Amazon QuickSight as our visualization tool.
 
-
-
 # Final results
 1. [Snow](Snow)
 2. [Wind](wind)
 3. [Rain](Rain)
 
-!!!! TODO RESULT
-
+!!!! TODO talk about the result
 
 # Optimization
 From our initial question to analyzing the data, until we were finally able to visualize our result, we had to make many changes in our architecture and approaches.
