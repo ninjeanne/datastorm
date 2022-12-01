@@ -1,15 +1,25 @@
 # Technologies and Architecture
 
 ## Final architecture
+![Alt text](img/Architecture.jpg)
+
 ### Apache Spark
+All ETL for this project has been performed using Apache Spark. The raw GHCNd data including - the information on different station id, station name, observation types, duration for which the record was monitored, and the value of these observations - are in .dly and .txt files. With the help of Spark and data frames, we first implemented extraction and transformation of useful information into a predefined schema. For further transformation we used the similar cleaned data available on the cluster provided for this course. As per our requirement, we further transformed the data into parquet files partitioned on observation values and stored it to our S3 bucket. This entire transformation was done with the help of Spark+DataFrames on the EMR cluster.
 
 ### Amazon Elastic MapReduce (EMR) 
+Amazon EMR (previously called Amazon Elastic MapReduce) is a managed cluster platform that simplifies running big data frameworks, such as Apache Hadoop and Apache Spark, on AWS to process and analyze vast amounts of data. The central component of Amazon EMR is the cluster which is a collection of Amazon Elastic Compute Cloud (Amazon EC2) instances. The cluster as a whole can be configured to install distributed applications such as Apache Spark and Hadoop on each instance, also called nodes which essentially enable distributed processing. 
+
+In our architecture, we create a cluster for the purpose of running spark jobs with 1 master and 2 worker nodes/instances of type - c7g.xlarge. Our EMR Cluster is used to perform the ETL Phase of the project wherein we run the Python scripts for the Spark application on the cluster which read the data from the S3 Bucket optimized with S3Select filter to efficiently reduce the amount of data that Amazon S3 transfers thus reducing the cost and latency to retrieve this data. The data after ETL is partitioned by the observation values and stored back into an S3 bucket as parquet files. All of the cluster configurations as well as partitioning details are provided [here](../Parallelization/README.md). 
 
 ### Amazon Simple Storage Service (S3)
+Amazon Simple Storage Service (Amazon S3) is an object storage service that offers industry-leading scalability, data availability, security, and performance and can be used to store and protect any amount of data for a range of use cases, such as data lakes, websites, mobile applications, backup and restore, archive, enterprise applications, IoT devices, and big data analytics. For our methodology, we use different S3 buckets to store the Raw Data, the scripts required by the Spark Application on the EMR Cluster, the processed data after ETL, as well as to hold the outputs of the queries performed subsequently in Athena. We also use S3 as a data lake to use in conjunction with AWS Glue Crawler and Catalog to obtain the final tables used for the analysis and visualization phase of the project.
 
 ### Amazon Glue
 
 ### Amazon Athena
+
+### Amazon Identity & Access Management (IAM) 
+AWS Identity and Access Management is used to control who and what can access the different services and resources. It allows us to set and manage fine-grained access control for users and AWS Services. By specifying permissions for users and assigning roles to different AWS services, we are able to provide these with temporary security credentials for workloads that access your AWS resources while assigning them the least privileges required by them as governed by the best practices. Further, we can also manage multiple identities across a single AWS account by creating IAM Users under the root account. Following this, as depicted in the figure, we have implemented all of our architecture in a single AWS account and created three IAM users for ourselves within it.
 
 ### Amazon Quicksight
 Amazon QuickSight is a business analytics web service that makes it easy to build visualizations, perform ad-hoc analysis, and quickly get insights from data, anytime, on any device. It can be connected to Redshift, S3 or Athena. It is also possible to use Amazon’s Lambda Connector to use a broader variety of services. In this project, we mainly worked with Athena and Quicksight. Therefore, Quicksight submitted queries that were executed in Athena.
