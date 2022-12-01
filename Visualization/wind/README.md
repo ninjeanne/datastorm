@@ -31,7 +31,7 @@ FROM datastorm.observations t1
     INNER JOIN datastorm.observations t4 ON t1.station = t4.station AND t1.date = t4.date AND t4.observation = 'TAVG'
 GROUP BY t1.state, date_format(date_parse(t1.date,'%Y%m%d'), '%Y%m')
 ```
-The results were vizualised within a [timeseries plot](timeseries_state_2022-11-26T21_56_13.pdf), a [heatmap](heatmap_2022-11-26T22_21_32.pdf), a [Tree Map](heatmap_2022-11-26T22_21_32.pdf) and a [boxplot](BoxPlots_2022-11-26T02_45_38.pdf).
+The results were visualized within a [timeseries plot](timeseries_state_2022-11-26T21_56_13.pdf), a [heatmap](heatmap_2022-11-26T22_21_32.pdf), a [Tree Map](heatmap_2022-11-26T22_21_32.pdf) and a [boxplot](BoxPlots_2022-11-26T02_45_38.pdf).
 
 The time-series plot shows that every Canadian state's wind speed started to increase after 2018.
 The state with the most wind in average, max, as well as the highest median, is NL (Newfoundland and Labrador), followed by British Columbia (BC), Nova Scotia (NS) and Prince Edward Island (PE).
@@ -43,5 +43,4 @@ In conclusion, we will continue our research on the southern states.
 The final [Geomap](Heatmap_with_Geodata_2022-11-27T00_50_24.pdf) visualizes the max, min and average of the wind, max, min and average temperature.
 
 According to this plot, the best place to live with respect to temperature and wind is the Greater Vancouver Area!
-
 

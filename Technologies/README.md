@@ -12,6 +12,7 @@
 ### Amazon Athena
 
 ### Amazon Quicksight
+Amazon QuickSight is a business analytics web service that makes it easy to build visualizations, perform ad-hoc analysis, and quickly get insights from data, anytime, on any device. It can be connected to Redshift, S3 or Athena. It is also possible to use Amazon’s Lambda Connector to use a broader variety of services. In this project, we mainly worked with Athena and Quicksight. Therefore, Quicksight submitted queries that were executed in Athena.
 
 ## Evaluation of various technologies
 ### Visualization
@@ -89,3 +90,6 @@ Since our GHCN data was highly-relational and well partitioned and stored on S3,
 * The result from recent queries are stored upto 45 days and automatically deleted after that. But we can choose to extend this duration should we need the result for a longer duration
 * The results can be viewed at anytime, edited and even downloaded for further analysis or visualization.
 https://docs.aws.amazon.com/athena/latest/ug/querying.html
+
+### Examples
+Under [img](img), there are examples on how to connect Quicksight with Athena, using a Lambda Connector for connecting Quicksight to DynamoDB or how an AWS Glue Crawler looks like.
