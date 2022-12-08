@@ -10,10 +10,21 @@ spark.sparkContext.setLogLevel('WARN')
 assert spark.version >= '3.0'
 
 
-def test_model(path_to_data, path_to_trained_model, observation, output_path):
+def test_model(path_to_data, observation, path_to_trained_model, output_path):
     print("Read the data, sort it by the date desc and prefilter it for the observation {}", observation)
-    data = spark.read.parquet(path_to_data)\
-        .where(functions.col("observation") == observation)\
+    # FORMAT
+    # station| date|value|latitude|longitude|elevation|state| observation
+    # date in yyyy-MM-dd
+    # data = spark.read.parquet(path_to_data)
+
+    data = spark.read.parquet(path_to_data) \
+        .withColumnRenamed("Latitude", "latitude") \
+        .withColumnRenamed("Longitude", "longitude") \
+        .withColumnRenamed("Elevation", "elevation") \
+        .withColumnRenamed("State", "state") \
+        .withColumn("date", functions.date_format(functions.to_date(functions.col("date"), "yyyyMMdd"), "yyyy-MM-dd"))
+
+    data = data.where(functions.col("observation") == observation)\
         .sort(functions.col("date").desc())
 
     print("Get the latest entries per station and the observation {}", observation)
@@ -23,7 +34,7 @@ def test_model(path_to_data, path_to_trained_model, observation, output_path):
                             (functions.col("station") == functions.col("newest_station")) &
                             (functions.col("date") == functions.col("latest_date")))\
         .drop("newest_station")\
-        .drop("latest_date").withColumn("date_with_type", functions.to_date(functions.col("date"), "yyyyMMdd"))\
+        .drop("latest_date").withColumn("date_with_type", functions.to_date(functions.col("date"), "yyyy-MM-dd"))\
         .cache()
 
     print("Duplicate the latest entries and add one day to the date")
