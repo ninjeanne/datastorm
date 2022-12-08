@@ -5,7 +5,7 @@
   * Release: emr-6.9.0
   * Application: Spark
 * Hardware configuration
-  * Instance type: c7g.large
+  * Instance type: c7g.xlarge
   * Number of instances:
     * 1 main node
     * 2 worker nodes
@@ -42,6 +42,12 @@ Optimize parallelism:
 * (Number of years)*(observations of interest)*(10) = 14520
   * Round it up to 15000
 * use "s3selectCSV" filter
+
+|   Service      | Without S3Select |     WithS3Select  |
+|----------------|------------------|-------------------|
+| EMR (Run Time) |    44 Minutes    |     12 Minutes    |
+
+
 
 Restrictions:
 * The data stored in Parquet files is self-explanatory, meaning it contains metadata that can increase the storage size
