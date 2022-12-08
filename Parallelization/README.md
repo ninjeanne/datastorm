@@ -21,16 +21,18 @@
 * --executor-memory: mem-per-node/num-executors-per-node = 8GB/12 = 600M
 * --conf spark.dynamicAllocation.enabled=false
 
-## Pricing
-TODO
+## Optimization
+### Pre-filtering
+Compare the time for data from 1900-2020
 
-## Partitioning
-Original dataset: 
-* <TODO_SIZE_IN_GB>
-* CSV
-* Zipped
+|   Service      | Without S3Select |     WithS3Select  |
+|----------------|------------------|-------------------|
+| EMR (Run Time) |    44 Minutes    |     12 Minutes    |
 
-Optimize parallelism:
+We will therefore use the "s3selectCSV" filter for larger datasets.
+
+### Partitioning
+Proposed ideas to optimize parallelism:
 * 12 observations of interest
 * 1 Executor reads one file
   * we need equally sized files
@@ -40,25 +42,18 @@ Optimize parallelism:
 * Number of years: 
   * (2021-1900) = 121
 * (Number of years)*(observations of interest)*(10) = 14520
-  * Round it up to 15000
-* use "s3selectCSV" filter
+  * Round it up to 15000 -> a high number
 
-|   Service      | Without S3Select |     WithS3Select  |
-|----------------|------------------|-------------------|
-| EMR (Run Time) |    44 Minutes    |     12 Minutes    |
-
-
-
-Restrictions:
+Further restrictions:
 * The data stored in Parquet files is self-explanatory, meaning it contains metadata that can increase the storage size
 * Executors have to open and close too many files at once
 * Optimal file size for parquet is 1GB according to the documentation
 
-### Process raw data in EMR
-* To find the optimal number of partitions, we decided to compare different partition sizes
+To find the optimal number of partitions, we decided to compare different partition sizes
   * no partitioning (dynamic allocation of spark activated)
   * 15000 Partitions
   * 1500 Partitions
+  * 12 Partitions (by the number of observations)
 * Test files
   * data
     * year: 2010
