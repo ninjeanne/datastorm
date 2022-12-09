@@ -9,7 +9,7 @@ WHERE observation in ('SNWD', 'TMAX', 'TMIN', 'TAVG')
 GROUP BY station, "station name", date_format(date_parse(date,'%Y%m%d'), '%Y%m'), latitude, longitude, elevation, state, observation
 
 ```
-
+[dataset created] (https://us-west-2.quicksight.aws.amazon.com/sn/data-sets/62208cb7-e4f3-4b69-bcf5-18afa0a2493f/view)
 ## Filters
 date-month - Jan 1 2015 to Feb 1 2015
 States - AB, BC, MB, NB, NL, NS, ON, PE, QC, SK
@@ -46,7 +46,7 @@ GROUP BY
     date_format(date_parse(o1.date,'%Y%m%d'), '%Y%m'), o1.station, o1.state, o1.elevation, o1.value, o2.value, o3.value, o4.value
 
 ```
-
+[dataset created] (https://us-west-2.quicksight.aws.amazon.com/sn/data-sets/a1f7b30d-6a61-4a7a-9b5b-5c6ef46bc019/view)
 ## Filter
 States - AB, BC, NS, ON, QC, SK
 
