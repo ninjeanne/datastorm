@@ -2,7 +2,7 @@
 
 Our dataset came from GHCNd. The organization decided to use DLY, where values can be read from fixed positions. We worked out the key for this, as it was not documented for either values or metadata.
 We then encountered further difficulties splitting the data series (this comprised a whole month of data) into a more aggregatable format.
-A better representation of this was found on our course's cluster CMPT-732. We decided to work with it first, but we have shown [here](final/pre-transformation) how DLY can be converted to the same CSV format of the SFU cluster. 
+A better representation of this was found on our CMPT-732 course's cluster that we used for [these](final/partitioning) scripts, but we have shown [here](final/dly-transformation) how DLY can be converted to the same CSV format of the SFU cluster as well as our final format. 
 
 ## Final ETL files
 [Script for transforming DLY files](final)
@@ -10,9 +10,8 @@ A better representation of this was found on our course's cluster CMPT-732. We d
 ## Data analysis
 Our analyses with the data provided in both DLY and CSV helped us derive a more convenient data format. The following compares the properties of both structures of the same data set.
 
-
 ### Properties of the GHCNd dataset
-Examples can be found [here](final/pre-transformation)
+Examples can be found [here](final/dly-transformation)
 * The data does not include column names and uses a non-self-explanatory format.
   * We need to add column names and data types
 * The values have to be read from fixed positions (for txt- and dly-files)

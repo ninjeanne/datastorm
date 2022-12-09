@@ -3,7 +3,7 @@
 How to get the data is explained [here](Acquiring)
 ## Transform GHCNd's DLY-files (exemplified with one station)
 ```bash
-spark-submit ETL/final/pre-transformation/ETL-dly-files.py ghcnd-stations.txt CA1AB000001.dly
+spark-submit ETL/final/dly-transformation/ETL-dly-files.py ghcnd-stations.txt CA1AB000001.dly
 ```
 
 ## Run the ETL on an AWS EMR cluster
