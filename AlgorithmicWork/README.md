@@ -1,12 +1,10 @@
 # Algorithmic Work
+Here you can find our SQL queries for
+* [Snow](snow.sql)
+* [Precipitation](precipitation.sql)
+* [Wind](wind.sql)
 
-## Precipitation
-
-## Snow
-
-## Wind
-The usage of the queries and the interpretation of the plots can be found [here](../Visualization/wind)
-[All used Athena queries for correlating wind data](wind.sql)
+The interpretation and usage in QuickSight can be found [here](../Visualization)
 
 ______
 ### A quick note on time series weather prediction
