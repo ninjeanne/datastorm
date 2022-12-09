@@ -65,5 +65,5 @@ In conclusion, we will continue our research on the southern states.
 The final [Geomap Heatmap](Heatmap_with_Geodata_2022-12-08T21_29_20.pdf) visualizes the max, min and average of the wind, max, min and average temperature.
 The filter is similar to the previous query, but with an additional group by station.
 
-According to this plot, the best place to live with respect to temperature and wind is the Greater Vancouver Area!
+According to this plot, the best place to live with respect to temperature and wind are British Columbia, Manitoba and Ontario. 
 
