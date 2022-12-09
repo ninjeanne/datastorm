@@ -1,6 +1,8 @@
 # UI and Visualization
 
 As described in [Technologies](../Technologies), we decided to use Amazon QuickSight as our visualization tool.
+All of our data sources, analyses and dashboards can be found in the shared folder datastorm 
+![shared folder](shared_folder.png)
 
 # Final results
 1. [Snow](Snow)

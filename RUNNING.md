@@ -6,13 +6,14 @@ How to get the data is explained [here](Acquiring)
 spark-submit ETL/final/pre-transformation/ETL-dly-files.py ghcnd-stations.txt CA1AB000001.dly
 ```
 
-## Run the pre-transformation on an AWS EMR cluster
+## Run the ETL on an AWS EMR cluster
+Our ETL scripts can be found [here](ETL/final/partitioning).
 ### Cluster configuration
 * Software configuration
   * Release: emr-6.9.0
   * Application: Spark
 * Hardware configuration
-  * Instance type: c7g.large
+  * Instance type: c7g.xlarge
   * Number of instances:
     * 1 main node
     * 2 worker nodes 
@@ -50,7 +51,7 @@ spark-submit ETL/final/partitioning/ETL-local-nopartitioning.py input/ output/
 ```sql
 select distinct(observation) from observations;
 ```
-Other queries can be found [here](AlgorithmicWork). We used Athena with Quicksight's Query Editor.
+Our queries can be found [here](AlgorithmicWork). We used Athena with Quicksight's Query Editor.
 
 ## QuickSight
 * Go to QuickSight

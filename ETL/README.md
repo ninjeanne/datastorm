@@ -10,10 +10,9 @@ A better representation of this was found on our course's cluster CMPT-732. We d
 ## Data analysis
 Our analyses with the data provided in both DLY and CSV helped us derive a more convenient data format. The following compares the properties of both structures of the same data set.
 
-### Data formats
-Examples can be found [here](final/pre-transformation)
 
 ### Properties of the GHCNd dataset
+Examples can be found [here](final/pre-transformation)
 * The data does not include column names and uses a non-self-explanatory format.
   * We need to add column names and data types
 * The values have to be read from fixed positions (for txt- and dly-files)
