@@ -15,6 +15,7 @@ In our architecture, we create a cluster for the purpose of running spark jobs w
 Amazon Simple Storage Service (Amazon S3) is an object storage service that offers industry-leading scalability, data availability, security, and performance and can be used to store and protect any amount of data for a range of use cases, such as data lakes, websites, mobile applications, backup and restore, archive, enterprise applications, IoT devices, and big data analytics. For our methodology, we use different S3 buckets to store the Raw Data, the scripts required by the Spark Application on the EMR Cluster, the processed data after ETL, as well as to hold the outputs of the queries performed subsequently in Athena. We also use S3 as a data lake to use in conjunction with AWS Glue Crawler and Catalog to obtain the final tables used for the analysis and visualization phase of the project.
 
 ### Amazon Glue
+Athena can only use the data stored in Amazon S3 after using the AWS Glue Data Catalog. AWS Glues provides a file crawler that we use to add metadata, like table and column names, to the data stored in S3. The mapping of our S3 filesystem to databases, tables, and views appears then in Athena's query editor.
 
 ### Amazon Athena
 Amazon Athena is an interactive query service that makes it easy to analyze data directly in Amazon Simple Storage Service (Amazon S3) using standard SQL. Amazon Athena also makes it easy to interactively run data analytics using Apache Spark without having to plan for, configure, or manage resources. 
