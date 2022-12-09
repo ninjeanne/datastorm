@@ -1,8 +1,8 @@
 # Analysis of Wind speed (WSFG), TMIN, TAVG and TMAX
 ## Quicksight Links
-1. [Geomap and Boxplot](https://us-west-2.quicksight.aws.amazon.com/sn/accounts/163431423073/dashboards/5e5f0bdb-ac5e-423b-bf03-ba6895cfe5b6?directory_alias=karishmadamania)
+1. [Geomap and Boxplot](https://us-west-2.quicksight.aws.amazon.com/sn/accounts/163431423073/dashboards/98f5ebd4-1d67-4786-82b9-6f3a99f12d0f?directory_alias=karishmadamania)
 2. [Timeseries Plot and Tree Map/Heatmap](https://us-west-2.quicksight.aws.amazon.com/sn/accounts/163431423073/dashboards/a1651e1b-5899-462a-847a-3f81b9756270?directory_alias=karishmadamania)
-3. [Geo Heatmap](https://us-west-2.quicksight.aws.amazon.com/sn/accounts/163431423073/dashboards/60ede59a-8187-4c15-a0ea-e3ccb670dfac?directory_alias=karishmadamania)
+3. [Geo Heatmap](https://us-west-2.quicksight.aws.amazon.com/sn/accounts/163431423073/dashboards/5f0ee8c7-5031-49ac-97a9-d160556c062f?directory_alias=karishmadamania)
 The dashboards were also exported as pdfs.
 
 ## Analysis
