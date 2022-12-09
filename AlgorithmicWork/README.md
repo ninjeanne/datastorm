@@ -14,8 +14,8 @@ Therefore, we aggregated several observations with their location and correlated
 However, we tried to work with Spark's Machine Learning package and expand the prediction of a new TMAX date to multiple observations concerning a previous date.
 
 The files are located here:
-[Prediction Model Training](prediciton/observation_train.py)
-[Prediction of new observation values](prediciton/observation_prediction.py)
+* [Prediction Model Training](prediction/observation_train.py)
+* [Prediction of new observation values](prediction/observation_prediction.py)
 
 Our solution's disadvantage was that we tried to implement a time series forecasting from scratch that frameworks like Prophet have already solved.
 And these technologies are continuously optimized. That's why we stopped after our first draft considering the prediction further.
