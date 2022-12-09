@@ -16,3 +16,4 @@ This proposed methodology could be further modified to better understand any geo
 5. [Technologies](Technologies)
 6. [Bigness and Parallelization](Parallelization)
 7. [UI and Visualization](Visualization)
+8. [Final Report](report/report.pdf)
