@@ -9,6 +9,7 @@ spark-submit ETL/final/dly-transformation/ETL-dly-files.py ghcnd-stations.txt CA
 ## Run the ETL on an AWS EMR cluster
 Our ETL scripts can be found [here](ETL/final/partitioning).
 ### Cluster configuration
+* US-WEST-2 (Oregon)
 * Software configuration
   * Release: emr-6.9.0
   * Application: Spark

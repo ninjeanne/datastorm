@@ -1,37 +1,7 @@
 # Bigness and Parallelization
 
 ## Cluster configuration
-* Software configuration
-  * Release: emr-6.9.0
-  * Application: Spark
-* Hardware configuration
-  * Instance type: c7g.xlarge
-  * Number of instances:
-    * 1 main node
-    * 2 worker nodes
-* Specifications per instance
-  * 4 CPUs/cores
-    * 40 threads (~ times 10)
-  * 8 GB RAM
-
-
-## Spark-submit options
-* --num-executors: num-cores-per-node * total-nodes-in-cluster = 4 x 3 = 12
-* --executor-cores: one executor per core = 1
-* --executor-memory: mem-per-node/num-executors-per-node = 8GB/12 = 600M
-* --conf spark.dynamicAllocation.enabled=false
-
-## Optimization
-### Pre-filtering
-Compare the time for data from 1900-2020
-
-|   Service      | Without S3Select |     WithS3Select  |
-|----------------|------------------|-------------------|
-| EMR (Run Time) |    44 Minutes    |     12 Minutes    |
-
-We will therefore use the "s3selec# Bigness and Parallelization
-
-## Cluster configuration
+* US-WEST-2 (Oregon)
 * Software configuration
   * Release: emr-6.9.0
   * Application: Spark

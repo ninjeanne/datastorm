@@ -1,5 +1,5 @@
 # Explanation
-These scripts here were uploaded to Amazon EMR (see [Running](../../../RUNNING.md)) to compare the effects of partitioning on our dataset
+These scripts here were uploaded to Amazon EMR in Oregon (see [Running](../../../RUNNING.md)) to compare the effects of partitioning on our dataset
 (tested with a subset from 2010 and with data from 1900-2021).
 The scripts were created as a team, mostly inspired from [here](../../Analysis/precipitation/Final%20EMR%20Scripts).
 The cluster configuration and our results can be found under [Parallelization](../../../Parallelization). We used the results for tuning our EMR cluster.
